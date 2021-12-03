@@ -2,6 +2,7 @@ package beater
 
 import (
 	"crypto/tls"
+	//"strconv"
 	"encoding/json"
 	"fmt"
 	"github.com/christiangalsterer/httpbeat/config"
@@ -12,6 +13,8 @@ import (
 	"github.com/robfig/cron"
 	"strings"
 	"time"
+	//"bytes"
+    //"net/http"
 )
 
 type Poller struct {
@@ -197,7 +200,38 @@ func (p *Poller) runOneTime() error {
 		Response:     responseEvent,
 	}
 
-	p.httpbeat.client.PublishEvent(event.ToMapStr())
+	if (event.Response.StatusCode == 200) {
+		logp.Debug("Httpbeat", "\n\n\n ######## About to publish ########### \n\n\n")	
+		p.httpbeat.client.PublishEvent(event.ToMapStr())
+	
+		// initialize http client
+		/*client := &http.Client{}
+
+		repBody, _ := json.Marshal(map[string]map[string]string{
+			"index": map[string]string{
+				"number_of_replicas": "5",
+			},
+		 })
+
+	
+		// set the HTTP method, url, and request body
+		req, err := http.NewRequest(http.MethodPut, "http://tc405-112-01:9201/currencies_coincap/_settings?pretty", bytes.NewBuffer(repBody))
+		if err != nil {
+			panic(err)
+		}
+	
+		// set the request header Content-Type for json
+		req.Header.Set("Content-Type", "application/json; charset=utf-8")
+		resp, err := client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+	
+		logp.Debug("Httpbeat", "\n\n\n ######## REPLICAS RESPONSE %s ########### \n\n\n", strconv.Itoa(resp.StatusCode) )	*/
+		  
+	} else {
+		logp.Debug("Httpbeat", "\n\n\n ######## REQUEST FAILED ######## \n\n\n")
+	}
 
 	return nil
 }

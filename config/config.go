@@ -7,8 +7,8 @@ import (
 
 // Defaults for config variables which are not set
 const (
-	DefaultSchedule             string        = "@every 1m"
-	DefaultTimeout              time.Duration = 60 * time.Second
+	DefaultSchedule             string        = "@every 10s"
+	DefaultTimeout              time.Duration = 10 * time.Second
 	DefaultDocumentType         string        = "httpbeat"
 	DefaultOutputFormat         string        = "string"
 	DefaultJsonDotModeCharacter string        = "_"

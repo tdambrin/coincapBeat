@@ -11,7 +11,7 @@ httpbeat:
       #schedule:
 
       # The URL endpoint to call by Httpbeat
-      url: https://httpbin.org/headers
+      url: https://api.coincap.io/v2/assets
 
       # HTTP method to use.
       # Possible options are:
@@ -25,8 +25,8 @@ httpbeat:
 
       # Optional additional headers to send to the endpoint
       #headers:
-        #Accept: application/json
-
+      #  Accept: application/json
+      #  X-CoinAPI-Key: B7599241-EB8C-42DF-9CC8-DA15C3473DFA
       # Optional basic authentication
       #basic_auth:
         # Basic authentication username
@@ -111,7 +111,9 @@ httpbeat:
 #-------------------------- Elasticsearch output ------------------------------
 output.elasticsearch:
   # Array of hosts to connect to.
-  hosts: ["localhost:9200"]
+  hosts: ["tc405-112-01:9201"]
+  index: "currencies_coincap"
+  template.enabled: false
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"
